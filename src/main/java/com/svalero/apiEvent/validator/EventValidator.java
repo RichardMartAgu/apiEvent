@@ -16,7 +16,7 @@ public class EventValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", "field.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "field.required");
     }
 }

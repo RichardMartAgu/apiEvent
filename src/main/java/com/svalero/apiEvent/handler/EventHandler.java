@@ -75,7 +75,7 @@ public class EventHandler {
         Mono<Event> eventMono = serverRequest.bodyToMono(Event.class);
         return eventService.update(eventId, eventMono)
                 .flatMap(updatedEvent ->
-                        ServerResponse.ok()
+                        ServerResponse.status(HttpStatus.CREATED)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(updatedEvent))
                 .switchIfEmpty(notFound(eventId));

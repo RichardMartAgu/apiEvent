@@ -19,7 +19,7 @@ public class Event implements Serializable {
     @Field
     private String code;
     @Field
-    private String name;
+    private String state;
     @Field
     private String description;
 }

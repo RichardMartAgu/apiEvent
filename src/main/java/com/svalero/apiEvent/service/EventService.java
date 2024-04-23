@@ -22,7 +22,7 @@ public class EventService {
 
     public Mono<Event> save(Event event) {
         Event newEvent = new Event();
-        newEvent.setName(event.getName());
+        newEvent.setState(event.getState());
         newEvent.setCode(event.getCode());
         newEvent.setDescription(event.getDescription());
         return eventRepository.save(newEvent);
@@ -36,7 +36,7 @@ public class EventService {
         return event.flatMap((p) ->
                 eventRepository.findById(id).flatMap(existingEvent -> {
                     existingEvent.setCode(p.getCode());
-                    existingEvent.setName(p.getName());
+                    existingEvent.setState(p.getState());
                     existingEvent.setDescription(p.getDescription());
                     return eventRepository.save(existingEvent);
                 })

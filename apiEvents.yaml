@@ -1,0 +1,351 @@
+openapi: 3.0.1
+info:
+  title: Events API
+  description: |-
+    API reactiva que gestiona los eventos de un videojuego.
+  
+    Util Link:
+    - [The apiEvents Reactive api repository ](https://github.com/RichardMartAgu/apiEvent.git)
+  contact:
+    email: apiEvents@svalero.com
+  version: 1.0.0
+servers:
+  - url: 'https://api.apiEvents.com'
+
+#Control de eventos
+
+#Listar eventos
+
+paths:
+  /events:
+    get:
+      tags:
+        - Eventos
+      summary: Devuelve listado de todos los eventos.
+      description: Esta operación devuelve asíncronamente todos los eventos que se añaden.
+      responses:
+        '200':
+          description: Devuelve un stream de eventos.
+          content:
+            application/json:
+              schema:
+                properties:
+                  flight:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      code:
+                        type: string
+                      state:
+                        type: string
+                      description:
+                        type: string
+
+              examples:
+                example1:
+                  summary: Ejemplo de evento
+                  value:
+                    - Evento:
+                        id: "66274c2becafa41c4d50c49c"
+                        code: "Game24"
+                        state: "Game in progress"
+                        description: "Game progress successful"
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    #Crear eventos
+    post:
+      tags:
+        - Eventos
+      summary: Crea un nuevo evento.
+      description: Añadiendo los campos adecuados podemos crear un evento nuevo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - state
+                - description
+              properties:
+                code:
+                  type: string
+                  example: Game24
+                  description: Código del juego donde ocurren los eventos.
+                state:
+                  type: string
+                  example: Game in progress
+                  description: Nombre del evento actual.
+                description:
+                  type: string
+                  example: Game progress successful.
+                  description: Descripción del estado del evento.
+
+
+      responses:
+        '201':
+          description: El evento se ha registrado correctamente.
+
+        '400':
+          description: Error de validación en los datos de entrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  # Buscar eventos por Id
+
+  /event/{eventId}:
+    get:
+      tags:
+        - Eventos
+      summary: Busca evento por Id
+      description: A partir de una Id se puede encontrar los datos de un evento.
+      parameters:
+        - name: eventId
+          in: path
+          description: Id del evento necesario para buscar.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Devuelve un evento correctamente.
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      code:
+                        type: string
+                      state:
+                        type: string
+                      description:
+                        type: string
+
+              examples:
+                example1:
+                  summary: Ejemplo de evento
+                  value:
+                        id: "66274c2becafa41c4d50c49c"
+                        code: "Game24"
+                        state: "Game in progress"
+                        description: "Game progress successful"
+
+        '400':
+          description: Error al validar Id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Evento no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+
+
+    # Editar eventos
+    put:
+      tags:
+        - Eventos
+      summary: Edita un evento.
+      description: A partir del Id de un evento se edita el mismo evento añadiendo los campos adecuados.
+      parameters:
+        - name: eventId
+          in: path
+          description: Id del evento necesario para editar.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - state
+                - description
+              properties:
+                code:
+                  type: string
+                  example: Game24
+                  description: Código del juego donde ocurren los eventos.
+                state:
+                  type: string
+                  example: Game in progress
+                  description: Nombre del evento actual.
+                description:
+                  type: string
+                  example: Game progress successful.
+                  description: Descripción del estado del evento.
+            examples:
+              FullData:
+                summary: Ejemplo con todos los campos.
+                value:
+                  code: "Game24"
+                  state: "Game in progress"
+                  description: "Game progress successful"
+
+      responses:
+        '201':
+          description: El evento se ha editado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoContent'
+
+        '400':
+          description: Error de validación en los datos de entrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Evento no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    #Eliminar eventos
+
+    delete:
+      tags:
+        - Eventos
+      summary: Elimina un evento.
+      description: A partir del Id de un evento se borra el mismo evento.
+      parameters:
+        - name: eventId
+          in: path
+          description: Id del evento necesario para borrar.
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '204':
+          description: El evento se ha borrado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoContent'
+
+        '400':
+          description: Error al validar Id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    event:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 66274c2becafa41c4d50c49c
+        code:
+          type: string
+          example: Game24
+          description: Código del evento
+        state:
+          type: string
+          example: Game in progress
+          description: El nombre del estado.
+        description:
+          type: string
+          example: Game progress successful
+          description: Descripción del estado.
+
+    #    Errores
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: number
+          format: int32
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+
+    NoContent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 204
+        message: Ejecución correcta no devuelve objeto.
+        errors: No content
+
+    BadRequest:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 400
+        message: Error de validación.
+        errors: Bad Request
+
+    NotFound:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 404
+        message: El recurso solicitado no se puede encontrar.
+        errors: Event Id + {eventId} -> not found
+
+    InternalServerError:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+      example:
+        code: 500
+        message: Error interno del servidor
+        error: Internal Server Error
