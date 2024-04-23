@@ -9,13 +9,12 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 @Configuration
 public class EventRouter {
 
     @Bean
-    public RouterFunction<ServerResponse> eventsRoute(EventHandler eventHandler){
+    public RouterFunction<ServerResponse> eventsRoute(EventHandler eventHandler) {
         return RouterFunctions
                 .route(GET("/events").and(accept(MediaType.APPLICATION_JSON)), eventHandler::getAllEvents)
                 .andRoute(GET("/event/{id}").and(accept(MediaType.APPLICATION_JSON)), eventHandler::getEvent)

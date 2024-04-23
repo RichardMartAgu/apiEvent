@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "5a0d0b3f-1ea3-4ef3-9801-9ff00222cbe2",
+		"name": "apiEvents (reactive)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31669740"
+	},
+	"item": [
+		{
+			"name": "/events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/events",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/event/:eventId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/event/:eventId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"event",
+						":eventId"
+					],
+					"variable": [
+						{
+							"key": "eventId",
+							"value": "6626adaab23bc6180226dffb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\":\"Game24\",\r\n    \"state\":\"The game is ending\",\r\n    \"description\":\"Game progress successful\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/event",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"event"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/event/:eventId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/event/:eventId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"event",
+						":eventId"
+					],
+					"variable": [
+						{
+							"key": "eventId",
+							"value": "66275bbe814f273a1c593543"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/event/:eventId",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\":\"Game2400\",\r\n    \"state\":\"Game about to finish\",\r\n    \"description\":\"Game progress successful\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/event/:eventId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"event",
+						":eventId"
+					],
+					"variable": [
+						{
+							"key": "eventId",
+							"value": "66275bca814f273a1c593544"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

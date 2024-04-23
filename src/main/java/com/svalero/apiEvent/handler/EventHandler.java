@@ -16,8 +16,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
-
 @Component
 public class EventHandler {
 
@@ -82,14 +80,15 @@ public class EventHandler {
     }
 
 
-    private Mono<ServerResponse> notFound(){
+    private Mono<ServerResponse> notFound() {
         return ServerResponse.status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(new ErrorResponse(404,"Event not found")),ErrorResponse.class);
+                .body(Mono.just(new ErrorResponse(404, "Event not found")), ErrorResponse.class);
     }
-    private Mono<ServerResponse> notFound(String id){
+
+    private Mono<ServerResponse> notFound(String id) {
         return ServerResponse.status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(new ErrorResponse(404,"Event Id: "+id+" -> not found ")),ErrorResponse.class);
+                .body(Mono.just(new ErrorResponse(404, "Event Id: " + id + " -> not found ")), ErrorResponse.class);
     }
 }
