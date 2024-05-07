@@ -20,7 +20,7 @@ public class EventRouter {
                 .andRoute(GET("/event/{id}").and(accept(MediaType.APPLICATION_JSON)), eventHandler::getEvent)
                 .andRoute(POST("/event").and(accept(MediaType.APPLICATION_JSON)), eventHandler::createEvent)
                 .andRoute(DELETE("/event/{id}").and(accept(MediaType.APPLICATION_JSON)), eventHandler::deleteEvent)
-                .andRoute(PUT("/event/{id}").and(accept(MediaType.APPLICATION_JSON)), eventHandler::updateEvent);
+                .andRoute(PUT("/event/{id}").and(accept(MediaType.APPLICATION_JSON)), eventHandler::updateEvent)
+                .andRoute(GET("/game/{id}/events").and(accept(MediaType.APPLICATION_JSON)), eventHandler::getEventsByGameId);
     }
-
 }

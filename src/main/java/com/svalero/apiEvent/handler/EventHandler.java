@@ -2,6 +2,7 @@ package com.svalero.apiEvent.handler;
 
 import com.svalero.apiEvent.domain.Event;
 import com.svalero.apiEvent.service.EventService;
+import com.svalero.apiEvent.service.GameService;
 import com.svalero.apiEvent.util.ErrorResponse;
 import com.svalero.apiEvent.validator.EventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class EventHandler {
 
     @Autowired
     private EventService eventService;
+    @Autowired
+    private GameService gameService;
 
     private final Validator validator = new EventValidator();
 
@@ -39,6 +42,22 @@ public class EventHandler {
                 .switchIfEmpty(notFound(id));
     }
 
+    public Mono<ServerResponse> getEventsByGameId(ServerRequest serverRequest) {
+        String gameId = serverRequest.pathVariable("id");
+
+        return eventService.getEventsByGameId(gameId)
+                .collectList()
+                .flatMap(events -> {
+                    if (events.isEmpty()) {
+                        return notFound(gameId);
+                    } else {
+                        return ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(events);
+                    }
+                });
+    }
+
     public Mono<ServerResponse> createEvent(ServerRequest serverRequest) {
         Mono<Event> eventToSave = serverRequest.bodyToMono(Event.class)
                 .doOnNext(this::validate);
@@ -46,7 +65,7 @@ public class EventHandler {
         return eventToSave.flatMap(event ->
                 ServerResponse.status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(eventService.save(event), Event.class));
+                        .body(eventService.createEvent(event), Event.class));
     }
 
     private void validate(Event event) {

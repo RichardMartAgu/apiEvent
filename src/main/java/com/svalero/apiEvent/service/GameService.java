@@ -1,16 +1,21 @@
 package com.svalero.apiEvent.service;
 
+import com.svalero.apiEvent.domain.Event;
 import com.svalero.apiEvent.domain.Game;
+import com.svalero.apiEvent.respository.EventRepository;
 import com.svalero.apiEvent.respository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class GameService {
     @Autowired
     private GameRepository gameRepository;
+    private EventRepository eventRepository;
 
     public Flux<Game> getAllGames() {
         return gameRepository.findAll();
@@ -20,7 +25,7 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
-    public Mono<Game> save(Game game) {
+    public Mono<Game> createGame(Game game) {
         Game newGame = new Game();
         newGame.setMapName(game.getMapName());
         newGame.setPlayersInGame(game.getPlayersInGame());
@@ -38,8 +43,12 @@ public class GameService {
                     existingGame.setMapName(p.getMapName());
                     existingGame.setPlayersInGame(p.getPlayersInGame());
                     existingGame.setPlayerWins(p.getPlayerWins());
+                    existingGame.setPlayerWins(p.getPlayerWins());
                     return gameRepository.save(existingGame);
                 })
         );
+    }
+    public Flux<Event> getEventsByGameId(String juegoId) {
+        return eventRepository.findByGameId(juegoId);
     }
 }

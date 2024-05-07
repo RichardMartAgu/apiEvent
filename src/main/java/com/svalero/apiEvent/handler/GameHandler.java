@@ -46,7 +46,7 @@ public class GameHandler {
         return gameToSave.flatMap(game ->
                 ServerResponse.status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(gameService.save(game), Game.class));
+                        .body(gameService.createGame(game), Game.class));
     }
 
     private void validate(Game game) {
