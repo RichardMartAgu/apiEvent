@@ -1,6 +1,5 @@
 package com.svalero.apiEvent.router;
 
-import com.svalero.apiEvent.handler.EventHandler;
 import com.svalero.apiEvent.handler.GameHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +9,6 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 @Configuration
 public class GameRouter {

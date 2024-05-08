@@ -18,5 +18,6 @@ public class EventValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "field.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", "field.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "field.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gameId", "field.required");
     }
 }

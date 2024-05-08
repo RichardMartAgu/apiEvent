@@ -1,6 +1,5 @@
 package com.svalero.apiEvent.service;
 
-import com.svalero.apiEvent.domain.Event;
 import com.svalero.apiEvent.domain.Game;
 import com.svalero.apiEvent.respository.EventRepository;
 import com.svalero.apiEvent.respository.GameRepository;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @Service
 public class GameService {
@@ -48,7 +45,5 @@ public class GameService {
                 })
         );
     }
-    public Flux<Event> getEventsByGameId(String juegoId) {
-        return eventRepository.findByGameId(juegoId);
-    }
+
 }

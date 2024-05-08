@@ -2,7 +2,6 @@ package com.svalero.apiEvent.handler;
 
 import com.svalero.apiEvent.domain.Event;
 import com.svalero.apiEvent.service.EventService;
-import com.svalero.apiEvent.service.GameService;
 import com.svalero.apiEvent.util.ErrorResponse;
 import com.svalero.apiEvent.validator.EventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,7 @@ public class EventHandler {
 
     @Autowired
     private EventService eventService;
-    @Autowired
-    private GameService gameService;
+
 
     private final Validator validator = new EventValidator();
 

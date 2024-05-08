@@ -3,7 +3,7 @@ info:
   title: Events API
   description: |-
     API reactiva que gestiona los eventos de un videojuego.
-  
+    
     Util Link:
     - [The apiEvents Reactive api repository ](https://github.com/RichardMartAgu/apiEvent.git)
   contact:
@@ -12,11 +12,272 @@ info:
 servers:
   - url: 'https://api.apiEvents.com'
 
-#Control de eventos
+#Control de juegos
 
-#Listar eventos
+#Listar juegos
 
 paths:
+  /games:
+    get:
+      tags:
+        - Juegos
+      summary: Devuelve listado de todos los juegos.
+      description: Esta operación devuelve asíncronamente todos los jurgod que se añaden.
+      responses:
+        '200':
+          description: Devuelve un stream de juegos.
+          content:
+            application/json:
+              schema:
+                properties:
+                  flight:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      mapName:
+                        type: string
+                      playersInGame:
+                        type: integer
+                      playerWins:
+                        type: string
+
+              examples:
+                example1:
+                  summary: Ejemplo de juego
+                  value:
+                    - Juego:
+                        id: "663a729c8ece9f4582b52265"
+                        mapName: "FrozenMountain"
+                        playersInGame: 50
+                        playerWins: "Rayden"
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    #Crear juegos
+    post:
+      tags:
+        - Juegos
+      summary: Crea un nuevo juego.
+      description: Añadiendo los campos adecuados podemos crear un juego nuevo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mapName
+                - playersInGame
+                - playerWins
+              properties:
+                mapName:
+                  type: string
+                  example: FrozenMountain
+                  description: Nombre de mapa donde se juega la partida.
+                playersInGame:
+                  type: integer
+                  example: 50
+                  description: Jugadores actuales que quedan en la partida.
+                playerWins:
+                  type: string
+                  example: Rayden
+                  description: Nombre del jugador que va ganando la partida.
+
+
+      responses:
+        '201':
+          description: El juego se ha registrado correctamente.
+
+        '400':
+          description: Error de validación en los datos de entrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  # Buscar eventos por Id
+
+  /game/{gameId}:
+    get:
+      tags:
+        - Juegos
+      summary: Busca un juego por Id
+      description: A partir de una Id se puede encontrar los datos de un juego.
+      parameters:
+        - name: juegoId
+          in: path
+          description: Id del juego necesario para buscar.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Devuelve un juego correctamente.
+          content:
+            application/json:
+              schema:
+                properties:
+                  juego:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      mapName:
+                        type: string
+                      playersInGame:
+                        type: integer
+                      playerWins:
+                        type: string
+
+              examples:
+                example1:
+                  summary: Ejemplo de juego
+                  value:
+                    id: "663ba09a5db1653530f8f70e"
+                    mapName: "FrozenMuntains"
+                    playersInGame: 50
+                    playerWins: "Rayden"
+
+        '400':
+          description: Error al validar Id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Juego no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    # Editar juegos
+    put:
+      tags:
+        - Juegos
+      summary: Edita un juego.
+      description: A partir del Id de un juego se edita el mismo juego añadiendo los campos adecuados.
+      parameters:
+        - name: juegoId
+          in: path
+          description: Id del juego necesario para editar.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - mapName
+                - playersInGame
+                - playerWins
+              properties:
+                mapName:
+                  type: string
+                  example: FrozenMountain
+                  description: Nombre de mapa donde se juega la partida.
+                playersInGame:
+                  type: integer
+                  example: 50
+                  description: Jugadores actuales que quedan en la partida.
+                playerWins:
+                  type: string
+                  example: Rayden
+                  description: Nombre del jugador que va ganando la partida.
+
+      responses:
+        '201':
+          description: El juego se ha editado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoContent'
+
+        '400':
+          description: Error de validación en los datos de entrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Juego no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    #Eliminar juego
+
+    delete:
+      tags:
+        - Juegos
+      summary: Elimina un juego.
+      description: A partir del Id de un juego se borra el mismo juego.
+      parameters:
+        - name: JuegoId
+          in: path
+          description: Id del juego necesario para borrar.
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '204':
+          description: El juego se ha borrado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoContent'
+
+        '400':
+          description: Error al validar Id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+
+  #Control de eventos
+
+  #Listar eventos
+
+
   /events:
     get:
       tags:
@@ -144,10 +405,10 @@ paths:
                 example1:
                   summary: Ejemplo de evento
                   value:
-                        id: "66274c2becafa41c4d50c49c"
-                        code: "Game24"
-                        state: "Game in progress"
-                        description: "Game progress successful"
+                    id: "66274c2becafa41c4d50c49c"
+                    code: "Game24"
+                    state: "Game in progress"
+                    description: "Game progress successful"
 
         '400':
           description: Error al validar Id.
@@ -157,6 +418,69 @@ paths:
                 $ref: '#/components/schemas/BadRequest'
         '404':
           description: Evento no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  # Buscar eventos por Id
+
+  /game/{gameId}/events:
+    get:
+      tags:
+        - Eventos
+      summary: Busca eventos por un Id de juego
+      description: A partir de un Id de juego se puede encontrar los la lista de eventos asociados.
+      parameters:
+        - name: eventId
+          in: path
+          description: Id del juego necesario para buscar.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Devuelve un listado de eventos correctamente.
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      code:
+                        type: string
+                      state:
+                        type: string
+                      description:
+                        type: string
+
+              examples:
+                example1:
+                  summary: Ejemplo de evento
+                  value:
+                    id: "66274c2becafa41c4d50c49c"
+                    code: "Game24"
+                    state: "Game in progress"
+                    description: "Game progress successful"
+
+        '400':
+          description: Error al validar Id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Juego no encontrado.
           content:
             application/json:
               schema:
@@ -300,6 +624,25 @@ components:
           example: Game progress successful
           description: Descripción del estado.
 
+    game:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 663ba09a5db1653530f8f70e
+        mapName:
+          type: string
+          example: FrozenMuntains
+          description: Nombre del mapa donde se juega.
+        playersInGame:
+          type: integer
+          example: 50
+          description: Numero de jugadores en partida.
+        playerWins:
+          type: string
+          example: Rayden
+          description: Nobre del jugador que va ganando.
+
     #    Errores
     ErrorResponse:
       type: object
@@ -339,7 +682,7 @@ components:
       example:
         code: 404
         message: El recurso solicitado no se puede encontrar.
-        errors: Event Id + {eventId} -> not found
+        errors: Event/Game Id + {eventId/gameId} -> not found
 
     InternalServerError:
       type: object

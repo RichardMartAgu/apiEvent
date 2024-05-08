@@ -7,128 +7,316 @@
 	},
 	"item": [
 		{
-			"name": "/events",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/events",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"events"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/event/:eventId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/event/:eventId",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"event",
-						":eventId"
-					],
-					"variable": [
-						{
-							"key": "eventId",
-							"value": "6626adaab23bc6180226dffb"
+			"name": "Games",
+			"item": [
+				{
+					"name": "/games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/games",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"games"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/event",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"code\":\"Game24\",\r\n    \"state\":\"The game is ending\",\r\n    \"description\":\"Game progress successful\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}/event",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"event"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/event/:eventId",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/event/:eventId",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"event",
-						":eventId"
-					],
-					"variable": [
-						{
-							"key": "eventId",
-							"value": "66275bbe814f273a1c593543"
+				{
+					"name": "/game/:gameId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/game/:gameId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"game",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "663a729c8ece9f4582b52265",
+									"uuid": "ddb3ab3d-086c-43d1-9a6c-db02f2f4c72a"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/event/:eventId",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"code\":\"Game2400\",\r\n    \"state\":\"Game about to finish\",\r\n    \"description\":\"Game progress successful\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}/event/:eventId",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"event",
-						":eventId"
-					],
-					"variable": [
-						{
-							"key": "eventId",
-							"value": "66275bca814f273a1c593544"
+				{
+					"name": "/game/:gameId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/game/:gameId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"game",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "663a9dcc95fff31cd6999163",
+									"uuid": "1d807228-e88a-4392-964c-e75aab133a13"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "/game/:gameId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mapName\":\"Game24\",\r\n    \"playersInGame\":50,\r\n    \"playerWins\":\"Game in progress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/game/:gameId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"game",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "663a9dd795fff31cd6999164",
+									"uuid": "4f2bdb65-2ac8-4c8f-99cc-9828e70f0934"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/game",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mapName\":\"Game24\",\r\n    \"playersInGame\":50,\r\n    \"playerWins\":\"Game in progress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/game",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/game/:gameId/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/game/:gameId/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"game",
+								":gameId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "663a9c73852d1a23d4cdefec",
+									"uuid": "39144f40-a127-4d24-b426-a431d4d389df"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/event/:eventId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/event/:eventId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"event",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "663a816cd8b33c70509a2dbb",
+									"uuid": "1487e53d-fd9e-48ee-8d78-5a8e2e5227cf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"Game24\",\r\n    \"state\": \"The game is ending\",\r\n    \"description\": \"Game progress successful\",\r\n    \"gameId\": \"663a9c73852d1a23d4cdefec\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/event",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/event/:eventId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/event/:eventId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"event",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "663a9c92852d1a23d4cdefed",
+									"uuid": "5336dcbc-9ad6-4a7a-88b9-73365ee8ed77"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/event/:eventId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"Game2400\",\r\n    \"state\":\"Game about to finish\",\r\n    \"description\":\"Game progress successful\",\r\n    \"gameId\": \"663a9c73852d1a23d4cdefec\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/event/:eventId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"event",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "663a9c92852d1a23d4cdefed",
+									"uuid": "cbd2c4c2-01af-4cc7-8688-815b2dcf7751"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

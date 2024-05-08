@@ -1,7 +1,6 @@
 package com.svalero.apiEvent.service;
 
 import com.svalero.apiEvent.domain.Event;
-import com.svalero.apiEvent.domain.Game;
 import com.svalero.apiEvent.respository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +44,7 @@ public class EventService {
                 })
         );
     }
+
     public Flux<Event> getEventsByGameId(String gameId) {
         return eventRepository.findByGameId(gameId);
     }
